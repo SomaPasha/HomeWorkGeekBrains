@@ -108,16 +108,50 @@ public class NoughtsAndCrosses {
     }
 
     public static boolean checkWinO(char sym) {
-        if (map[0][0] == sym && map[0][1] == sym && map[0][2] == sym) return true;
-        if (map[1][0] == sym && map[1][1] == sym && map[1][2] == sym) return true;
-        if (map[2][0] == sym && map[2][1] == sym && map[2][2] == sym) return true;
-        if (map[0][0] == sym && map[1][0] == sym && map[2][0] == sym) return true;
-        if (map[0][1] == sym && map[1][1] == sym && map[2][1] == sym) return true;
-        if (map[0][2] == sym && map[1][2] == sym && map[2][2] == sym) return true;
-        if (map[0][0] == sym && map[1][1] == sym && map[2][2] == sym) return true;
-        if (map[2][0] == sym && map[1][1] == sym && map[0][2] == sym) return true;
+        if (checkHorizont(sym) || checkVertical(sym) || checkDiagon(sym)){
+            return  true;
+        }
+        return  false;
+    }
+
+    private static boolean checkDiagon(char sym) {
+
+
+        return false;
+
+    }
+    private static boolean checkVertical(char sym) {
+        int popeda = 0;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if(map[j][i]==sym){
+                    popeda++;
+                    if(popeda==DOTS_TO_WIN){
+                        return true;
+                    }
+                } else popeda=0;
+            }
+            popeda=0;
+        }
+        return  false;
+    }
+
+    private static boolean checkHorizont( char sym) {
+        int popeda = 0;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if(map[i][j]==sym){
+                    popeda++;
+                    if(popeda==DOTS_TO_WIN){
+                        return true;
+                    }
+                } else popeda=0;
+            }
+            popeda=0;
+        }
         return false;
     }
+
 
 
 }
