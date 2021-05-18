@@ -12,10 +12,10 @@ public class NoughtsAndCrosses {
 
     public static void main(String[] args) {
         initMap();
-//        for (int i = 0; i < SIZE; i++) {
-//            System.out.println(Arrays.toString(map[i]));
-//        }
+        printMap();
     }
+
+
 
     public static void initMap(){
         map= new char[SIZE][SIZE];
@@ -23,6 +23,20 @@ public class NoughtsAndCrosses {
             for (int j = 0; j < SIZE; j++) {
                 map[i][j]=DOT_EMPTY;
             }
+        }
+    }
+
+    public static void printMap() {
+        for (int i = 0; i <= SIZE; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < SIZE; i++) {
+            System.out.print((i+1) +" ");
+            for (int j = 0; j < SIZE; j++) {
+                System.out.print(map[i][j]+ " ");
+            }
+        System.out.println();
         }
     }
 }
