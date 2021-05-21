@@ -1,15 +1,12 @@
 package lesson4;
 
-import java.awt.font.GraphicAttribute;
-import java.sql.Struct;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class NoughtsAndCrosses {
     public static char[][] map;
     public static final int SIZE = 3;
-    public static final int DOTS_TO_WIN = 3;
+    public static final int DOTS_TO_WIN = 4;
     public static final char DOT_EMPTY = '*';
     public static final char DOT_X = 'X';
     public static final char DOT_O = 'O';
@@ -22,7 +19,7 @@ public class NoughtsAndCrosses {
         while (true) {
             humanTurn();
             printMap();
-            if (checkWinO(DOT_X)) {
+            if (checkWin(DOT_X)) {
                 System.out.println("Победил человек");
                 break;
             }
@@ -32,7 +29,7 @@ public class NoughtsAndCrosses {
             }
             aiTurn();
             printMap();
-            if (checkWinO(DOT_O)) {
+            if (checkWin(DOT_O)) {
                 System.out.println("Победил Искуственный Интеллект");
                 break;
             }
@@ -82,7 +79,7 @@ public class NoughtsAndCrosses {
         if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
             return false;
         }
-        if (map[x][y] == DOT_EMPTY) {
+        if (map[y][x] == DOT_EMPTY) {
             return true;
         }
         return false;
@@ -104,22 +101,16 @@ public class NoughtsAndCrosses {
             x = random.nextInt(SIZE);
             y = random.nextInt(SIZE);
         } while (!CellValid(x, y));
-        map[x][y] = DOT_O;
+        map[y][x] = DOT_O;
     }
 
-    public static boolean checkWinO(char sym) {
-        if (checkHorizont(sym) || checkVertical(sym) || checkDiagon(sym)){
+    public static boolean checkWin(char sym) {
+        if (checkHorizontal(sym) || checkVertical(sym) || checkDiagonal(sym)){
             return  true;
         }
         return  false;
     }
 
-    private static boolean checkDiagon(char sym) {
-
-
-        return false;
-
-    }
     private static boolean checkVertical(char sym) {
         int popeda = 0;
         for (int i = 0; i < SIZE; i++) {
@@ -136,7 +127,7 @@ public class NoughtsAndCrosses {
         return  false;
     }
 
-    private static boolean checkHorizont( char sym) {
+    private static boolean checkHorizontal(char sym) {
         int popeda = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
@@ -151,6 +142,72 @@ public class NoughtsAndCrosses {
         }
         return false;
     }
+
+    private static boolean checkDiagonal(char sym) {
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if(checkDiagonalLeft(i,j,sym)){
+                    return true;
+                 }
+                if(checkDiagonalRight(i,j,sym)){
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    private  static  boolean checkDiagonalLeft(int i , int j, char sym){
+        int popeda= 0;
+        int l =j;
+        for (int k = i; k< SIZE; k++) {
+            if (k==SIZE||l==SIZE){
+                break;
+            }
+            if(map[k][l]==sym){
+                popeda++;
+            } else {
+                popeda=0;
+            }
+            l++;
+            if(popeda==DOTS_TO_WIN){
+                return true;
+            }
+        }
+
+
+
+        return false;
+    }
+
+    private static boolean checkDiagonalRight(int i , int j, char sym) {
+        int popeda= 0;
+        int l =j;
+        for (int k = i; k< SIZE; k++) {
+            if (k==SIZE||l==-1){
+                break;
+            }
+            if(map[k][l]==sym){
+                popeda++;
+            } else {
+                popeda=0;
+            }
+            l--;
+
+            if(popeda==DOTS_TO_WIN){
+                return true;
+            }
+        }
+
+
+
+        return false;
+
+    }
+
+
 
 
 
