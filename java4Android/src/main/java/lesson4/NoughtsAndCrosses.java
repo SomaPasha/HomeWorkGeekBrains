@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class NoughtsAndCrosses {
     public static char[][] map;
-    public static final int SIZE = 5;
-    public static final int DOTS_TO_WIN = 4;
+    public static final int SIZE = 3;
+    public static final int DOTS_TO_WIN = 3;
     public static final char DOT_EMPTY = '*';
     public static final char DOT_X = 'X';
     public static final char DOT_O = 'O';
@@ -101,10 +101,11 @@ public class NoughtsAndCrosses {
     }
 
     public static boolean checkWin(char sym) {
-        do {
+       if (!isMapFull()){ do {
             iax = random.nextInt(SIZE);
             iay = random.nextInt(SIZE);
         } while (!CellValid(iax, iay));
+       }
         if (checkHorizontal(sym) || checkVertical(sym) || checkDiagonal(sym)) {
             return true;
         }
