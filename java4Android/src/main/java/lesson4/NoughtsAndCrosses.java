@@ -218,6 +218,20 @@ public class NoughtsAndCrosses {
             iay = y;
         }
 
+        if (popeda == (DOTS_TO_WIN - 1) && CellValid(x, y-DOTS_TO_WIN) && sym == 'X') {
+            iax = x;
+            iay = y-DOTS_TO_WIN;
+
+        }
+        if (popeda == (DOTS_TO_WIN - 1) && CellValid(x-DOTS_TO_WIN, y) && sym == 'X') {
+            iax = x-DOTS_TO_WIN;
+            iay = y;
+        }
+
+        if (popeda == (DOTS_TO_WIN - 1) && CellValid(x-DOTS_TO_WIN, y-DOTS_TO_WIN) && sym == 'X') {
+            iax = x-DOTS_TO_WIN;
+            iay = y-DOTS_TO_WIN;
+        }
 
     }
 
