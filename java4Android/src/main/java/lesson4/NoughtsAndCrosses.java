@@ -10,7 +10,7 @@ public class NoughtsAndCrosses {
     public static final char DOT_EMPTY = '*';
     public static final char DOT_X = 'X';
     public static final char DOT_O = 'O';
-    public static int iax,iay=0;
+    public static int iax, iay = 0;
     public static Scanner scanner = new Scanner(System.in);
     public static Random random = new Random();
 
@@ -102,45 +102,45 @@ public class NoughtsAndCrosses {
 
     public static boolean checkWin(char sym) {
         do {
-             iax = random.nextInt(SIZE);
-              iay = random.nextInt(SIZE);
+            iax = random.nextInt(SIZE);
+            iay = random.nextInt(SIZE);
         } while (!CellValid(iax, iay));
-        if (checkHorizontal(sym) || checkVertical(sym) || checkDiagonal(sym)){
-            return  true;
+        if (checkHorizontal(sym) || checkVertical(sym) || checkDiagonal(sym)) {
+            return true;
         }
-        return  false;
+        return false;
     }
 
     private static boolean checkVertical(char sym) {
         int popeda = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if(map[j][i]==sym){
+                if (map[j][i] == sym) {
                     popeda++;
-                    if(popeda==DOTS_TO_WIN){
+                    if (popeda == DOTS_TO_WIN) {
                         return true;
                     }
-                    blok(popeda,i,j+1,sym);
-                } else popeda=0;
+                    blok(popeda, i, j + 1, sym);
+                } else popeda = 0;
             }
-            popeda=0;
+            popeda = 0;
         }
-        return  false;
+        return false;
     }
 
     private static boolean checkHorizontal(char sym) {
         int popeda = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if(map[i][j]==sym){
+                if (map[i][j] == sym) {
                     popeda++;
-                    if(popeda==DOTS_TO_WIN){
+                    if (popeda == DOTS_TO_WIN) {
                         return true;
                     }
-                    blok(popeda,j+1,i,sym);
-                } else popeda=0;
+                    blok(popeda, j + 1, i, sym);
+                } else popeda = 0;
             }
-            popeda=0;
+            popeda = 0;
         }
         return false;
     }
@@ -149,10 +149,10 @@ public class NoughtsAndCrosses {
 
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if(checkDiagonalLeft(i,j,sym)){
+                if (checkDiagonalLeft(i, j, sym)) {
                     return true;
-                 }
-                if(checkDiagonalRight(i,j,sym)){
+                }
+                if (checkDiagonalRight(i, j, sym)) {
                     return true;
                 }
             }
@@ -161,68 +161,65 @@ public class NoughtsAndCrosses {
         return false;
     }
 
-    private  static  boolean checkDiagonalLeft(int i , int j, char sym){
-        int popeda= 0;
-        int l =j;
-        for (int k = i; k< SIZE; k++) {
-            if (k==SIZE||l==SIZE){
+    private static boolean checkDiagonalLeft(int i, int j, char sym) {
+        int popeda = 0;
+        int l = j;
+        for (int k = i; k < SIZE; k++) {
+            if (k == SIZE || l == SIZE) {
                 break;
             }
-            if(map[k][l]==sym){
+            if (map[k][l] == sym) {
                 popeda++;
             } else {
-                popeda=0;
+                popeda = 0;
             }
-            blok(popeda,l+1,k+1,sym);
+            blok(popeda, l + 1, k + 1, sym);
             l++;
-            if(popeda==DOTS_TO_WIN){
+            if (popeda == DOTS_TO_WIN) {
                 return true;
             }
 
         }
 
 
-
         return false;
     }
 
-    private static boolean checkDiagonalRight(int i , int j, char sym) {
-        int popeda= 0;
-        int l =j;
-        for (int k = i; k< SIZE; k++) {
-            if (k==SIZE||l==-1){
+    private static boolean checkDiagonalRight(int i, int j, char sym) {
+        int popeda = 0;
+        int l = j;
+        for (int k = i; k < SIZE; k++) {
+            if (k == SIZE || l == -1) {
                 break;
             }
-            if(map[k][l]==sym){
+            if (map[k][l] == sym) {
                 popeda++;
             } else {
-                popeda=0;
+                popeda = 0;
             }
-            blok(popeda,l-1,k+1,sym);
+            blok(popeda, l - 1, k + 1, sym);
             l--;
 
-            if(popeda==DOTS_TO_WIN){
+            if (popeda == DOTS_TO_WIN) {
                 return true;
             }
 
         }
 
 
-
         return false;
 
     }
 
-    private static void blok(int popeda, int x, int y, char sym){
+    private static void blok(int popeda, int x, int y, char sym) {
 
-        if (popeda==(DOTS_TO_WIN-1) && CellValid(x,y) && sym=='X' ){
-            iax=x;
-            iay=y;
+        if (popeda == (DOTS_TO_WIN - 1) && CellValid(x, y) && sym == 'X') {
+            iax = x;
+            iay = y;
         }
 
 
     }
-
 
 
 }
