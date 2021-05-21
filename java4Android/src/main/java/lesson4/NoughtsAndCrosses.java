@@ -5,11 +5,12 @@ import java.util.Scanner;
 
 public class NoughtsAndCrosses {
     public static char[][] map;
-    public static final int SIZE = 3;
+    public static final int SIZE = 5;
     public static final int DOTS_TO_WIN = 4;
     public static final char DOT_EMPTY = '*';
     public static final char DOT_X = 'X';
     public static final char DOT_O = 'O';
+    public static int iax,iay=0;
     public static Scanner scanner = new Scanner(System.in);
     public static Random random = new Random();
 
@@ -40,7 +41,6 @@ public class NoughtsAndCrosses {
         }
         System.out.println("Игра закончена");
     }
-
 
     public static void initMap() {
         map = new char[SIZE][SIZE];
@@ -96,15 +96,15 @@ public class NoughtsAndCrosses {
 
     public static void aiTurn() {
         int x, y;
-        do {
-            System.out.println("Введите координаты в формате X и Y ");
-            x = random.nextInt(SIZE);
-            y = random.nextInt(SIZE);
-        } while (!CellValid(x, y));
-        map[y][x] = DOT_O;
+
+        map[iay][iax] = DOT_O;
     }
 
     public static boolean checkWin(char sym) {
+        do {
+             iax = random.nextInt(SIZE);
+              iay = random.nextInt(SIZE);
+        } while (!CellValid(iax, iay));
         if (checkHorizontal(sym) || checkVertical(sym) || checkDiagonal(sym)){
             return  true;
         }
@@ -120,6 +120,7 @@ public class NoughtsAndCrosses {
                     if(popeda==DOTS_TO_WIN){
                         return true;
                     }
+                    blok(popeda,i,j+1,sym);
                 } else popeda=0;
             }
             popeda=0;
@@ -136,6 +137,7 @@ public class NoughtsAndCrosses {
                     if(popeda==DOTS_TO_WIN){
                         return true;
                     }
+                    blok(popeda,j+1,i,sym);
                 } else popeda=0;
             }
             popeda=0;
@@ -171,10 +173,12 @@ public class NoughtsAndCrosses {
             } else {
                 popeda=0;
             }
+            blok(popeda,l+1,k+1,sym);
             l++;
             if(popeda==DOTS_TO_WIN){
                 return true;
             }
+
         }
 
 
@@ -194,11 +198,13 @@ public class NoughtsAndCrosses {
             } else {
                 popeda=0;
             }
+            blok(popeda,l-1,k+1,sym);
             l--;
 
             if(popeda==DOTS_TO_WIN){
                 return true;
             }
+
         }
 
 
@@ -207,7 +213,15 @@ public class NoughtsAndCrosses {
 
     }
 
+    private static void blok(int popeda, int x, int y, char sym){
 
+        if (popeda==(DOTS_TO_WIN-1) && CellValid(x,y) && sym=='X' ){
+            iax=x;
+            iay=y;
+        }
+
+
+    }
 
 
 
