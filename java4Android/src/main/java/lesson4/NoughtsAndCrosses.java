@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class NoughtsAndCrosses {
     public static char[][] map;
-    public static final int DOTS_TO_WIN = 4;
-    public static final int SIZE = 5;
+    public static final int DOTS_TO_WIN = 3;
+    public static final int SIZE = 3;
     public static final char DOT_EMPTY = '*';
     public static final char DOT_X = 'X';
     public static final char DOT_O = 'O';
@@ -20,6 +20,7 @@ public class NoughtsAndCrosses {
         while (true) {
             humanTurn();
             printMap();
+            generateXAndYai();
             if (checkWin(DOT_X)) {
                 System.out.println("Победил человек");
                 break;
@@ -30,6 +31,7 @@ public class NoughtsAndCrosses {
             }
             aiTurn();
             printMap();
+            generateXAndYai();
             if (checkWin(DOT_O)) {
                 System.out.println("Победил Искуственный Интеллект");
                 break;
@@ -62,6 +64,14 @@ public class NoughtsAndCrosses {
                 System.out.print(map[i][j] + " ");
             }
             System.out.println();
+        }
+    }
+
+    public static void generateXAndYai(){
+        if (!isMapFull()){ do {
+            iax = random.nextInt(SIZE);
+            iay = random.nextInt(SIZE);
+        } while (!CellValid(iax, iay));
         }
     }
 
@@ -101,11 +111,7 @@ public class NoughtsAndCrosses {
     }
 
     public static boolean checkWin(char sym) {
-       if (!isMapFull()){ do {
-            iax = random.nextInt(SIZE);
-            iay = random.nextInt(SIZE);
-        } while (!CellValid(iax, iay));
-       }
+
         if (checkHorizontal(sym) || checkVertical(sym) || checkDiagonal(sym)) {
             return true;
         }
